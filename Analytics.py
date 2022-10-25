@@ -17,9 +17,9 @@ def total(name_file: str):
     file = open(name_file, 'r')
     t = 0
     for line in file:
-        for word in line:
-            if word != '\n':
-                t += len(word)
+        for ch in line:
+            if ch != '\n':
+                t += len(ch)
     file.close()
     return t
 #Максимальная длина
