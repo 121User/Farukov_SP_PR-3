@@ -27,13 +27,12 @@ def max_length(name_file: str):
     file = open(name_file, 'r')
     maxlen: int = -1
     for line in file:
+        line = line.replace("\n", "")
         if line != '':
             if maxlen == -1:
-                line.replace("\n", "")
                 maxlen = len(line)
             else:
                 if maxlen < len(line):
-                    line.replace("\n", "")
                     maxlen = len(line)
     file.close()
     return maxlen
@@ -42,13 +41,12 @@ def min_length(name_file: str):
     file = open(name_file, 'r')
     minlen: int = -1
     for line in file:
+        line = line.replace("\n", "")
         if line != '':
             if minlen == -1:
-                line.replace("\n", "")
                 minlen = len(line)
             else:
                 if minlen > len(line):
-                    line.replace("\n", "")
                     minlen = len(line)
     file.close()
     return minlen
@@ -86,10 +84,12 @@ def repetitions(name_file: str):
     rep_dict: dict = dict()
     # Создание словаря с повторениями
     for line in file:
-        if len(line) in rep_dict:
-            rep_dict[len(line)] += 1
-        else:
-            rep_dict[len(line)] = 1
+        line = line.replace("\n", "")
+        if line != '':
+            if len(line) in rep_dict:
+                rep_dict[len(line)] += 1
+            else:
+                rep_dict[len(line)] = 1
     # Сортировка словаря с повторениями
     sorted_dict = {}
     sorted_keys = sorted(rep_dict.keys())
@@ -138,7 +138,7 @@ if __name__ == '__main__':
     # Создание процессов
     for i in range(multiprocessing.cpu_count()):
         name_pr: str = f"pr{i}"
-        quant: int = randint(100000, 5000000)
+        quant: int = randint(1, 11)
         pr: Process = Process(target=create_files, args = (i+1, quant), name=name_pr)
         list_process.append(pr)
         pr.start()
